@@ -1,0 +1,20 @@
+{
+ "updated": "2026-11-14",
+ "current_phase": 2,
+ "phases": [
+  {"en": "Project identification and approval", "sw": "Utambuzi na uidhinishaji wa mradi", "so": "Aqoonsiga iyo ansixinta mashruuca"},
+  {"en": "Feasibility study and design", "sw": "Upembuzi yakinifu na usanifu", "so": "Daraasadda suurtagalnimada iyo naqshadeynta"},
+  {"en": "Procurement of contractor", "sw": "Ununuzi wa mkandarasi", "so": "Soo iibsiga qandaraaslaha"},
+  {"en": "Site handover", "sw": "Kukabidhi eneo", "so": "Wareejinta goobta"},
+  {"en": "Construction and equipping", "sw": "Ujenzi na uwekaji vifaa", "so": "Dhismaha iyo qalabaynta"},
+  {"en": "Commissioning and handover", "sw": "Uzinduzi na kukabidhi", "so": "Furitaanka iyo wareejinta"}
+ ],
+ "requirements": [
+  {"status": "ready", "en": "Architectural and structural drawings", "sw": "Michoro ya usanifu na miundo", "so": "Sawirrada naqshadda iyo qaab-dhismeedka"},
+  {"status": "ready", "en": "DOSH workplace registration (occupational safety and health)", "sw": "Usajili wa eneo la kazi DOSH (usalama na afya kazini)", "so": "Diiwaangelinta goobta shaqada ee DOSH (badbaadada iyo caafimaadka shaqada)"},
+  {"status": "ready", "en": "Soil (geotechnical) testing", "sw": "Upimaji wa udongo (jioteknolojia)", "so": "Baaritaanka ciidda (juqraafi-farsamo)"},
+  {"status": "ready", "en": "Bills of Quantities (BoQs)", "sw": "Orodha ya Kiasi na Gharama (BoQ)", "so": "Liiska Tirada iyo Qiimaha (BoQ)"},
+  {"status": "ready", "en": "Grievance Redress Mechanism (this page)", "sw": "Utaratibu wa Kushughulikia Malalamiko (ukurasa huu)", "so": "Habka Xallinta Cabashooyinka (boggan)"},
+  {"status": "pending", "en": "Feasibility study report approved by the State Department for Devolution", "sw": "Ripoti ya upembuzi yakinifu kuidhinishwa na Idara ya Serikali ya Ugatuzi", "so": "Warbixinta daraasadda suurtagalnimada oo ay ansixiso Waaxda Dowladda ee Baahinta Awoodaha"}
+ ]
+}

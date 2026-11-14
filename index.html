@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garissa County Projects Dashboard | Public Investment Management</title>
+<meta name="description" content="Public Investment Management (PIM) Projects Dashboard of the County Government of Garissa: every county project on a map, with status, budget, timeframe, location and a citizen feedback mechanism.">
+<meta name="theme-color" content="#7a2408">
+<link rel="icon" href="assets/favicon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.Default.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+
+<div class="govbar">
+  <span data-i18n="govbar">Republic of Kenya · County Government of Garissa</span>
+  <span class="govbar-r">
+    <label class="sr" for="lang" data-i18n="language">Language</label>
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option><option value="sw">Kiswahili</option><option value="so">Af-Soomaali</option>
+    </select>
+    <button id="a11yBtn" class="linkbtn" aria-haspopup="dialog" aria-controls="a11yPanel"><span aria-hidden="true">♿</span> <span data-i18n="a11y">Accessibility</span></button>
+  </span>
+</div>
+
+<header class="site">
+  <a class="brand" href="#home">
+    <img src="assets/logo-192.png" alt="County Government of Garissa crest" width="60" height="60">
+    <span><strong data-i18n="brand1">County Government of Garissa</strong><em data-i18n="brand2">Public Investment Management · Projects Dashboard</em></span>
+  </a>
+  <button id="menuBtn" class="menubtn" aria-expanded="false" aria-controls="nav"><span class="sr" data-i18n="menu">Menu</span>☰</button>
+  <nav id="nav" aria-label="Main">
+    <a href="#home" data-i18n="nav_home">Home</a>
+    <a href="#map" data-i18n="nav_map">Map</a>
+    <a href="#projects" data-i18n="nav_projects">Projects</a>
+    <a href="#analytics" data-i18n="nav_analytics">Analytics</a>
+    <a href="#library" data-i18n="nav_library">Library Project</a>
+    <a href="#feedback" data-i18n="nav_feedback">Feedback</a>
+    <a href="#compliance" data-i18n="nav_compliance">KDSP II</a>
+    <a href="#help" data-i18n="nav_help">Help</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page">
+  <div class="hero">
+    <div class="hero-in">
+      <p class="eyebrow" data-i18n="hero_eyebrow">Open county projects · FY 2014/15 to date</p>
+      <h1 data-i18n="hero_title">See every county project. Ask about any of them.</h1>
+      <p class="lead" data-i18n="hero_lead">Find the projects in your ward on the map, check their status, budget and timeframe, and send your question or complaint straight to the County. We reply within 7 days.</p>
+      <p class="cta">
+        <a class="btn gold" href="#map" data-i18n="cta_map">Open the map</a>
+        <a class="btn ghost" href="#projects" data-i18n="cta_browse">Browse projects</a>
+        <a class="btn ghost" href="#feedback" data-i18n="cta_feedback">Give feedback</a>
+        <button class="btn ghost" id="tourBtn" data-i18n="cta_tour">Show me around</button>
+      </p>
+    </div>
+    <svg class="hero-map" id="heroMap" viewBox="0 0 300 300" role="img" aria-label="Outline map of Garissa County with project locations"></svg>
+  </div>
+  <div class="stats" id="stats" aria-label="Summary"></div>
+
+  <div class="wrap">
+    <a class="flag" href="#library">
+      <span class="tag gold" data-i18n="flag_tag">KDSP II investment project</span>
+      <h2 data-i18n="flag_title">Garissa County Library, ICT &amp; Innovation Centre and Civic Auditorium</h2>
+      <p data-i18n="flag_text">Now at the feasibility study phase. Follow each requirement as it is met, see the site on the map and raise a concern through the project grievance desk.</p>
+      <span class="more" data-i18n="flag_more">Open the project tracker →</span>
+    </a>
+
+    <h2 class="sec" data-i18n="feat_title">What you can do here</h2>
+    <div class="tiles">
+      <a href="#map" class="tile"><b>🗺️</b><h3 data-i18n="f1_t">Find projects near you</h3><p data-i18n="f1_p">An interactive map with county, sub-county and ward boundaries. Switch between street, satellite and hybrid views.</p></a>
+      <a href="#projects" class="tile"><b>🔎</b><h3 data-i18n="f2_t">Search and filter</h3><p data-i18n="f2_p">By name, ward, department, status, financial year and funding source.</p></a>
+      <a href="#analytics" class="tile"><b>📊</b><h3 data-i18n="f3_t">Follow the money</h3><p data-i18n="f3_p">Budgets and spending by sub-county, department and year.</p></a>
+      <a href="#feedback" class="tile"><b>💬</b><h3 data-i18n="f4_t">Have your say</h3><p data-i18n="f4_p">Ask, complain, praise or suggest. You get a reference number and a reply within 7 days.</p></a>
+      <a href="#projects" class="tile"><b>⬇️</b><h3 data-i18n="f5_t">Download the data</h3><p data-i18n="f5_p">The full project list in Excel, CSV or as a printable PDF.</p></a>
+      <a href="#help" class="tile"><b>♿</b><h3 data-i18n="f6_t">Built for everyone</h3><p data-i18n="f6_p">English, Kiswahili and Af-Soomaali. Larger text, high contrast, read-aloud and full keyboard use.</p></a>
+    </div>
+
+    <h2 class="sec" data-i18n="life_title">How a county project moves</h2>
+    <ol class="life">
+      <li><b data-i18n="l1_t">Planning</b><span data-i18n="l1_p">Identified in public participation, approved and budgeted.</span></li>
+      <li><b data-i18n="l2_t">Tender and award</b><span data-i18n="l2_p">Advertised, bids evaluated and a contract awarded.</span></li>
+      <li><b data-i18n="l3_t">Site handover</b><span data-i18n="l3_p">The contractor takes the site; a Project Management Committee of residents oversees it.</span></li>
+      <li><b data-i18n="l4_t">Works</b><span data-i18n="l4_p">Construction, with inspections and progress updates.</span></li>
+      <li><b data-i18n="l5_t">Completion</b><span data-i18n="l5_p">Final inspection, commissioning and handover to the community.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= MAP ================= -->
+<section id="map" class="page" hidden>
+  <div class="maplayout">
+    <aside class="mapside" aria-label="Map filters">
+      <h1 data-i18n="map_title">Projects map</h1>
+      <p class="hint" data-i18n="map_hint">Click a marker for details. Click a ward or sub-county to see only its projects. Use the layers button on the map to change the base map.</p>
+      <div id="mapFilters" class="filters col"></div>
+      <label class="chk"><input type="checkbox" id="shade"> <span data-i18n="map_shade">Shade sub-counties by number of projects</span></label>
+      <p><button class="btn small" id="libFly" data-i18n="map_lib">Go to the County Library project</button></p>
+      <p id="mapCount" class="count" aria-live="polite"></p>
+      <div class="legend" id="legend"></div>
+      <p class="hint" data-i18n="map_note">Where a project has no surveyed GPS point it is placed inside its ward or sub-county, near the main settlement. Each project page states how its location was determined.</p>
+      <p><a href="#projects" data-i18n="map_list">Prefer a list? Open the projects table</a></p>
+    </aside>
+    <div id="leaflet" role="application" aria-label="Interactive map of Garissa County projects"></div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" class="page" hidden>
+  <div class="band"><div class="wrap"><h1 data-i18n="pr_title">Projects</h1><div id="chips" class="chips"></div></div></div>
+  <div class="wrap">
+    <div id="listFilters" class="filters"></div>
+    <div class="toolbar">
+      <p id="listCount" class="count" aria-live="polite"></p>
+      <span class="grow"></span>
+      <button class="btn small" id="xlsBtn">⬇ Excel</button>
+      <button class="btn small" id="csvBtn">⬇ CSV</button>
+      <button class="btn small" id="pdfBtn">⬇ PDF</button>
+      <span class="seg" role="group" aria-label="View"><button id="vCards" aria-pressed="true" data-i18n="v_cards">Cards</button><button id="vTable" aria-pressed="false" data-i18n="v_table">Table</button></span>
+    </div>
+    <div id="list"></div>
+    <div id="pager" class="pager"></div>
+  </div>
+</section>
+
+<!-- ================= ANALYTICS ================= -->
+<section id="analytics" class="page" hidden>
+  <div class="band"><div class="wrap"><h1 data-i18n="an_title">Analytics</h1><p data-i18n="an_sub">Totals by status, sub-county, department, financial year and funding source.</p></div></div>
+  <div class="wrap">
+    <div class="charts" id="charts"></div>
+    <h2 class="sec" data-i18n="an_bands">KDSP II stock-take bands</h2>
+    <div id="bands" class="tablewrap"></div>
+    <h2 class="sec" data-i18n="an_stalled">Stalled projects</h2>
+    <div id="stalled" class="tablewrap"></div>
+  </div>
+</section>
+
+<!-- ================= LIBRARY ================= -->
+<section id="library" class="page" hidden>
+  <div class="band"><div class="wrap">
+    <span class="tag gold" data-i18n="flag_tag">KDSP II investment project</span>
+    <h1 id="libTitle"></h1>
+    <p data-i18n="lib_sub">Funded under the Second Kenya Devolution Support Program (KDSP II). Location: Garissa Township.</p>
+  </div></div>
+  <div class="wrap">
+    <h2 class="sec" data-i18n="lib_phase">Where the project is now</h2>
+    <ol class="steps" id="libSteps"></ol>
+    <div class="two">
+      <div>
+        <h2 class="sec" data-i18n="lib_req">Requirements tracker</h2>
+        <div class="meter"><div id="libBar"></div></div>
+        <p id="libPct" class="count"></p>
+        <ul class="reqs" id="libReqs"></ul>
+        <p class="hint" id="libUpdated"></p>
+      </div>
+      <div>
+        <h2 class="sec" data-i18n="lib_loc">Project site</h2>
+        <div id="libMap" class="minimap" role="application" aria-label="Map of the library project site"></div>
+        <p class="hint" id="libCoord"></p>
+      </div>
+    </div>
+
+    <h2 class="sec" id="grm" data-i18n="grm_title">Project grievance desk (GRM)</h2>
+    <div class="two">
+      <div>
+        <p data-i18n="grm_intro">If the library project affects you — access, noise, dust, safety, land, workers' conduct or anything else — tell us. It is free, you may stay anonymous, and nobody may punish you for raising a concern.</p>
+        <ol class="grmsteps">
+          <li><b data-i18n="g1_t">Report</b> <span data-i18n="g1_p">Use this form, email feedback@garissa.go.ke or tell the site office.</span></li>
+          <li><b data-i18n="g2_t">Acknowledge</b> <span data-i18n="g2_p">You get a reference number immediately.</span></li>
+          <li><b data-i18n="g3_t">Review</b> <span data-i18n="g3_p">The project grievance committee looks into it.</span></li>
+          <li><b data-i18n="g4_t">Reply</b> <span data-i18n="g4_p">You receive an answer within 7 days.</span></li>
+          <li><b data-i18n="g5_t">Appeal</b> <span data-i18n="g5_p">Not satisfied? The County KDSP II coordination unit reviews the case.</span></li>
+        </ol>
+      </div>
+      <form id="grmForm" class="card form" novalidate>
+        <label><span data-i18n="grm_cat">What is the concern about?</span>
+          <select name="category" required>
+            <option value="Access or land" data-i18n="gc1">Access or land</option>
+            <option value="Noise, dust or environment" data-i18n="gc2">Noise, dust or environment</option>
+            <option value="Health and safety" data-i18n="gc3">Health and safety</option>
+            <option value="Workers and labour" data-i18n="gc4">Workers and labour</option>
+            <option value="Conduct or harassment (handled in confidence)" data-i18n="gc5">Conduct or harassment (handled in confidence)</option>
+            <option value="Other" data-i18n="gc6">Other</option>
+          </select></label>
+        <label><span data-i18n="fb_msg">Your message</span><textarea name="message" rows="4" required minlength="10"></textarea></label>
+        <label class="chk"><input type="checkbox" name="anonymous"> <span data-i18n="fb_anon">Send anonymously</span></label>
+        <div class="who">
+          <label><span data-i18n="fb_name">Name (optional)</span><input name="name" autocomplete="name"></label>
+          <label><span data-i18n="fb_contact">Email or phone for our reply</span><input name="contact" autocomplete="email"></label>
+        </div>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" data-i18n="grm_send">Submit grievance</button>
+        <div class="result" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEEDBACK ================= -->
+<section id="feedback" class="page" hidden>
+  <div class="band"><div class="wrap"><h1 data-i18n="fb_title">Citizen feedback</h1><p data-i18n="fb_sub">Ask a question, make a complaint, give a compliment or suggest an improvement. Every message gets a reference number and a reply within 7 days.</p></div></div>
+  <div class="wrap two">
+    <form id="fbForm" class="card form" novalidate>
+      <fieldset><legend data-i18n="fb_type">Type of feedback</legend>
+        <div class="radios">
+          <label><input type="radio" name="type" value="Enquiry" checked> <span data-i18n="t_enq">Enquiry</span></label>
+          <label><input type="radio" name="type" value="Complaint"> <span data-i18n="t_comp">Complaint</span></label>
+          <label><input type="radio" name="type" value="Compliment"> <span data-i18n="t_compl">Compliment</span></label>
+          <label><input type="radio" name="type" value="Suggestion"> <span data-i18n="t_sug">Suggestion</span></label>
+        </div></fieldset>
+      <label><span data-i18n="fb_project">Which project? (optional)</span>
+        <input name="project" list="projList" id="fbProject" autocomplete="off"><datalist id="projList"></datalist></label>
+      <p class="hint" id="fbRoute" aria-live="polite"></p>
+      <label><span data-i18n="fb_ward">Your ward (optional)</span><select name="ward" id="fbWard"><option value=""></option></select></label>
+      <label><span data-i18n="fb_msg">Your message</span><textarea name="message" rows="5" required minlength="10"></textarea></label>
+      <label class="chk"><input type="checkbox" name="anonymous" id="fbAnon"> <span data-i18n="fb_anon">Send anonymously</span></label>
+      <div class="who">
+        <label><span data-i18n="fb_name">Name (optional)</span><input name="name" autocomplete="name"></label>
+        <label><span data-i18n="fb_email">Email (so we can reply)</span><input type="email" name="email" autocomplete="email"></label>
+        <label><span data-i18n="fb_phone">Phone (optional)</span><input type="tel" name="phone" autocomplete="tel"></label>
+      </div>
+      <p class="hint" data-i18n="fb_privacy">Your contact details are used only to reply to you and are never published (Data Protection Act, 2019).</p>
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" type="submit" data-i18n="fb_send">Send feedback</button>
+      <div class="result" role="status" aria-live="polite"></div>
+    </form>
+    <div>
+      <h2 class="sec" data-i18n="fb_how">What happens next</h2>
+      <ol class="grmsteps">
+        <li><b data-i18n="h1_t">Received</b> <span data-i18n="h1_p">You see a reference number on screen and, if you gave an email, an acknowledgement in your inbox.</span></li>
+        <li><b data-i18n="h2_t">Routed</b> <span data-i18n="h2_p">Your message goes to feedback@garissa.go.ke and is assigned to the responsible department.</span></li>
+        <li><b data-i18n="h3_t">Answered</b> <span data-i18n="h3_p">The County replies within 7 days.</span></li>
+      </ol>
+      <h2 class="sec" data-i18n="fb_other">Other ways to reach us</h2>
+      <p>✉ <a href="mailto:feedback@garissa.go.ke">feedback@garissa.go.ke</a><br>🌐 <a href="https://www.garissa.go.ke" rel="noopener">www.garissa.go.ke</a><br>📮 P.O. Box 563-70100, Garissa</p>
+      <div id="queued" class="note" hidden></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPLIANCE ================= -->
+<section id="compliance" class="page" hidden>
+  <div class="band"><div class="wrap"><h1 data-i18n="co_title">KDSP II · DLI 7 readiness</h1><p data-i18n="co_sub">Key Result Area 3: Oversight, Participation and Accountability. This page lets County officers and citizens check, at any time, whether the dashboard meets the verification protocol.</p></div></div>
+  <div class="wrap">
+    <div class="two">
+      <div><h2 class="sec" data-i18n="co_score">Readiness score</h2><div class="score" id="score"></div></div>
+      <div><h2 class="sec" data-i18n="co_check">DLI 7 checklist</h2><ul class="reqs" id="dliList"></ul></div>
+    </div>
+    <h2 class="sec" data-i18n="co_fields">Data completeness by field</h2>
+    <div id="fieldBars" class="charts one"></div>
+    <h2 class="sec" data-i18n="co_reco">APA 3 recommendations and how the dashboard answers them</h2>
+    <div class="tablewrap" id="recoTable"></div>
+    <h2 class="sec" data-i18n="co_dq">Data quality notes for follow-up</h2>
+    <ul id="dqNotes" class="plain"></ul>
+    <h2 class="sec" data-i18n="co_reports">One-click reports</h2>
+    <p class="cta" id="reportBtns"></p>
+  </div>
+</section>
+
+<!-- ================= HELP ================= -->
+<section id="help" class="page" hidden>
+  <div class="band"><div class="wrap"><h1 data-i18n="he_title">Help and questions</h1></div></div>
+  <div class="wrap narrow" id="faq"></div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap fgrid">
+    <div><img src="assets/logo-192.png" alt="" width="56" height="56"><p><strong data-i18n="brand1">County Government of Garissa</strong><br><span data-i18n="foot_about">Public Investment Management Projects Dashboard, supported by the Second Kenya Devolution Support Program (KDSP II).</span></p></div>
+    <div><h2 data-i18n="foot_links">Quick links</h2><a href="#map" data-i18n="nav_map">Map</a><a href="#projects" data-i18n="nav_projects">Projects</a><a href="#library" data-i18n="nav_library">Library Project</a><a href="#feedback" data-i18n="nav_feedback">Feedback</a><a href="#compliance" data-i18n="nav_compliance">KDSP II</a></div>
+    <div><h2 data-i18n="foot_contact">Contact</h2><p>P.O. Box 563-70100, Garissa<br><a href="mailto:feedback@garissa.go.ke">feedback@garissa.go.ke</a><br><a href="https://www.garissa.go.ke" rel="noopener">www.garissa.go.ke</a></p></div>
+  </div>
+  <p class="fine"><span id="updated"></span> · <span data-i18n="foot_fine">Map data © OpenStreetMap contributors. Boundaries: County GIS Directorate.</span></p>
+</footer>
+
+<!-- project dialog -->
+<dialog id="dlg" aria-labelledby="dlgTitle"><div id="dlgBody"></div></dialog>
+
+<!-- accessibility panel -->
+<dialog id="a11yPanel" aria-labelledby="a11yH">
+  <h2 id="a11yH" data-i18n="a11y_title">Accessibility options</h2>
+  <div class="a11y">
+    <div class="row"><span data-i18n="a_text">Text size</span><span><button data-a="smaller" aria-label="Smaller text">A−</button><button data-a="reset">A</button><button data-a="larger" aria-label="Larger text">A+</button></span></div>
+    <label class="chk"><input type="checkbox" data-t="contrast"> <span data-i18n="a_contrast">High contrast</span></label>
+    <label class="chk"><input type="checkbox" data-t="spacing"> <span data-i18n="a_spacing">Easy-reading spacing</span></label>
+    <label class="chk"><input type="checkbox" data-t="links"> <span data-i18n="a_links">Underline all links</span></label>
+    <label class="chk"><input type="checkbox" data-t="motion"> <span data-i18n="a_motion">Stop animations</span></label>
+    <div class="row"><span data-i18n="a_read">Read this page aloud</span><span><button data-a="read">▶</button><button data-a="stop">■</button></span></div>
+    <p class="hint" data-i18n="a_keys">Keyboard: Tab moves between items, Enter opens, Esc closes. Alt+1 Home, Alt+2 Map, Alt+3 Projects, Alt+4 Feedback.</p>
+  </div>
+  <button class="btn" data-close data-i18n="close">Close</button>
+</dialog>
+
+<div id="tour" class="tour" hidden role="dialog" aria-live="polite"></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="vendor/leaflet.markercluster.js"></script>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
