@@ -130,17 +130,13 @@ const COLS = [['Project ID', 'id'], ['Project name', 'title'], ['Department', 'd
   ['Status remarks', 'status_note'], ['Stock-take band', 'band'], ['Data source', 'source']];
 const toRows = rows => [COLS.map(c => c[0]), ...rows.map(p => COLS.map(c => p[c[1]] ?? ''))];
 function download(name, blob) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
-function exportCSV(rows, name) {
-  const csv = toRows(rows).map(r => r.map(v => /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : v).join(',')).join('\r\n');
-  download(name + '.csv', new Blob(['﻿' + csv], { type: 'text/csv' }));
-}
 function loadXLSX() { return window.XLSX ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'vendor/xlsx.mini.min.js'; s.onload = ok; s.onerror = no; document.head.append(s); }); }
 async function exportXLSX(rows, name, sheet) {
   try {
     await loadXLSX();
     const ws = XLSX.utils.aoa_to_sheet(toRows(rows)); ws['!cols'] = COLS.map((c, i) => ({ wch: i === 1 ? 60 : 18 }));
     const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, (sheet || 'Projects').slice(0, 31)); XLSX.writeFile(wb, name + '.xlsx');
-  } catch (e) { exportCSV(rows, name); }
+  } catch (e) { toast('The Excel file could not be created. Please reload the page and try again.'); }
 }
 function printList() { const v = view; view = 'table'; renderList(true); $('#projects').classList.add('print'); window.print(); $('#projects').classList.remove('print'); view = v; renderList(); }
 const stamp = () => new Date().toISOString().slice(0, 10);
@@ -348,7 +344,7 @@ function initFeedback() {
 const RECO = [
   ['Documentation not standardised across departments; inconsistent use of KDSP II formats', 'One data template for every project (tools/ and the Excel download use the same DLI 7 fields); the data builder cleans names, dates, departments and wards on import.', 1],
   ['Heavy reliance on manual records; retrospective documentation', 'Project records are published from a single dataset that is rebuilt whenever a department updates its workbook; no re-typing.', 1],
-  ['Difficulty extracting system-generated reports in required formats', 'One-click Excel, CSV and PDF downloads; stock-take reports in the three KDSP II bands; stalled-projects report.', 1],
+  ['Difficulty extracting system-generated reports in required formats', 'One-click Excel and PDF downloads; stock-take reports in the three KDSP II bands; stalled-projects report.', 1],
   ['Delays retrieving documents from decentralised units', 'Role-based departmental accounts with maker-checker approval and an audit trail.', 0],
   ['Capacity gaps on KDSP II requirements', 'Guided tour, help page and this readiness page explain each DLI 7 requirement in plain language.', 1],
   ['Need for pre-verification internal reviews (mock assessments)', 'Live DLI 7 checklist and data-completeness score on this page show the gaps before the verification team arrives.', 1],
@@ -367,7 +363,7 @@ function renderCompliance() {
   const checks = [
     [1, 'Public portal with county projects uploaded', n + ' projects, FY ' + uniq('fy')[0] + ' to ' + uniq('fy').pop()],
     [score === 100 ? 1 : 2, 'Each project shows name, status, timeframe, budget and location', score + '% complete; see the field table below'],
-    [1, 'Downloadable project list (Excel, CSV, PDF)', 'Generated from the published data on request'],
+    [1, 'Downloadable project list (Excel, PDF)', 'Generated from the published data on request'],
     [1, 'Working URL to the public portal', location.origin + location.pathname],
     [live ? 1 : 2, 'Citizen feedback form with automatic acknowledgement', 'Reference number on screen; acknowledgement email; response standard ' + CONFIG.RESPONSE_DAYS + ' days'],
     [1, 'Feedback received at the designated County email', CONFIG.FEEDBACK_EMAIL],
@@ -453,7 +449,6 @@ Promise.all([j('data/projects.json'), j('data/county.geojson'), j('data/subcount
   $('#vCards').onclick = () => { view = 'cards'; store.set('gsa_view', view); page = 1; renderList(); };
   $('#vTable').onclick = () => { view = 'table'; store.set('gsa_view', view); page = 1; renderList(); };
   $('#xlsBtn').onclick = () => exportXLSX(filtered(), 'Garissa_county_projects_' + stamp());
-  $('#csvBtn').onclick = () => exportCSV(filtered(), 'Garissa_county_projects_' + stamp());
   $('#pdfBtn').onclick = printList;
   $('#tourBtn').onclick = tour;
   const q = new URLSearchParams(location.search).get('p'); if (q) openProject(q);

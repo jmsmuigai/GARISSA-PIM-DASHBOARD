@@ -1,5 +1,5 @@
 /* Offline support: network first, falling back to the last saved copy. */
-const CACHE = 'gsa-pim-v1';
+const CACHE = 'gsa-pim-v2';
 const SHELL = ['./', 'index.html', 'css/style.css', 'js/config.js', 'js/i18n.js', 'js/app.js', 'vendor/leaflet.js', 'vendor/leaflet.css',
   'vendor/leaflet.markercluster.js', 'vendor/MarkerCluster.css', 'vendor/MarkerCluster.Default.css', 'assets/logo-192.png', 'data/projects.json', 'data/county.geojson',
   'data/subcounties.geojson', 'data/wards.geojson', 'data/library_tracker.json'];

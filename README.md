@@ -9,7 +9,7 @@ Public, GIS-based register of County Government of Garissa projects with a citiz
 |---|---|
 | Home | Totals by status and budget, KDSP II investment project, guided tour |
 | Map | Interactive map: county, sub-county and ward boundaries; street, hybrid, satellite, light, terrain and dark base maps; click a ward or sub-county to filter |
-| Projects | Search and filter by name, ward, sub-county, department, status, financial year, funding source; Excel, CSV and PDF downloads |
+| Projects | Search and filter by name, ward, sub-county, department, status, financial year, funding source; Excel and PDF downloads |
 | Analytics | Totals by status, sub-county, department, year and funding source; KDSP II stock-take bands; stalled projects |
 | Library Project | Phase and requirements tracker for the County Library, ICT & Innovation Centre and Civic Auditorium, site map, project grievance desk (GRM) |
 | Feedback | Enquiry, complaint, compliment or suggestion; reference number; automatic acknowledgement; 7-day response standard |
